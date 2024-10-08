@@ -26,7 +26,31 @@
                 <b class="text-danger">Product category: {{ product[4]}}</b> <br> </br>
                 <b class="text-success">Product quantity : 3</b> <br> </br>
                 <b class="text-success">Product cost : {{ product[3] }}</b> <br> </br>
-                <button type="button" class="btn btn-primary">Buy Now</button>
+                <!-- check if email exists in session['key'] -->
+                {% if session['key'] %}
+                <!-- it means the user is logged in  -->
+                <!-- you can now proceed to make payment  -->
+                <!-- show user a form to complete payment  -->
+
+                  <form action="/mpesa" method="post">
+                    <!-- create a phone number input 
+                    input.form-control -->
+                    <input type="text" class="form-control" placeholder="Enter phone 254xxxxxxxxxx" name="phone">
+                    <label for="">To pay KES</label>
+                    <input type="number" class="form-control" name="amount" value="{{product[3]}}" readonly>
+                    <br>
+                    <input type="submit" value="pay now" class="btn btn-info" />
+                  </form>
+
+                {%  else  %}
+
+                <!-- user is not logged in  -->
+                <!-- ask them to login to make purchase  -->
+                     <h4 class="text-warning">Please sign in to make purchase</h4>
+                     <a href="/login" class="btn btn-info btn-sm">Login</a>
+
+                {%  endif %}
+
             </div>
         </section>
 

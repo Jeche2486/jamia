@@ -35,31 +35,25 @@
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <!-- check if session ['key'] exists  -->
+        <form class="d-flex" >
+           <!-- check if session ['key'] exists  -->
           <!-- if it exists the user should not see the login and register buttons  -->
           <!-- user is supposed to see their email and a logout button  -->
           {%  if session['key']   %}
           <!-- user exists  -->
-           <b class="text-success">Welcome, {{ session['key'] }}</b>
-           <a href="/logout" class="btn btn-outline-primary">Logout</a>
+              <b class="text-success">Welcome, {{ session['key'] }}</b>
+              <a href="/logout" class="btn btn-outline-primary">Logout</a>
 
-          {%    else   %}
+          {%  else %}
 
           <!-- user does not exist  -->
 
-              <a class="nav-link" href="/login">Login</a>
-              <a class="nav-link" href="/register">Register</a>
+               <a class="btn btn-outline-primary m-1" href="/login">Login</a>
+               <a class="btn btn-outline-primary m-1" href="/register">Register</a>
           {% endif  %}
-          <!-- Button trigger modal -->
-<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Register
-</button> -->
 
-          </button>
         </form>
-
+         
       </div>
     </div>
   </nav>

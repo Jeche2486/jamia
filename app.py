@@ -1,6 +1,7 @@
 from flask import*
 import pymysql
 from functions import *
+from mpesa import *
 app = Flask (__name__)
 app.secret_key = 'your_secret_key'  # Needed for session management
 
@@ -240,22 +241,31 @@ def login():
  
           return render_template('login.html', error=" invalid login credentials")
         else:
-         session['key'] = email
+            session['key'] = email
          
-        #  flash("Login successful!", "success")  # Add this line for success message
+            #  flash("Login successful!", "success")  # Add this line for success message
+            # If GET request, show the registration form
+        return redirect("/")
     
-    # If GET request, show the registration form
-         return redirect("/")
-
-
-
     return render_template ('login.html')
+
+#mpesa 
+#implement STK PUSH
+@app.route('/mpesa', methods = ['POST'])
+def mpesa():
+    phone = request.form["phone"]
+    amount = request.form["amount"]
+
+    # use mpesa payment function mpesa.py 
+    # it accepts the phone and amount as arguments 
+    mpesa_payment(amount, phone)
+    return '<h1> Please Complete Payment in your phone </h1>'    \
+    '<a href="/" class="btn btn-primary btn-sm" > Go back to products </a>'
 
 @app.route('/logout')
 def logout():
-    if request.method == 'POST':
        session.clear()
-    return redirect("/login")
+       return redirect("/login")
 
 if __name__ == '__main__':
     app.run(debug=True,port= 3000)
