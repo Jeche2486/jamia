@@ -1,6 +1,8 @@
 from flask import*
 import pymysql
+from functions import *
 app = Flask (__name__)
+app.secret_key = 'your_secret_key'  # Needed for session management
 
 @app.route('/')
 def homepage():
@@ -160,9 +162,9 @@ def UploadFashion():
         connection.commit()
 
 
-        return render_template('/uploadfashion.html', message = "Fashion added successfully")
+        return render_template('uploadfashion.html', message = "Fashion added successfully")
     else:
-     return render_template('/uploadfashion.html', error = "Please add a fashion")
+     return render_template('uploadfashion.html', error = "Please add a fashion")
     
 
     
@@ -173,17 +175,87 @@ def About():
     return "this is about page "
 
 
-@app.route('/register')
-def Register ():
-    return " this is register page "
+@app.route("/register", methods=['POST', 'GET'])
+def register():
+    if request.method == 'POST':
+        # user registration logic
+        username = request.form['username']
+        email = request.form['email']
+        gender = request.form['gender']
+        phone = request.form['phone']
+        password = request.form['password']
 
-@app.route('/login')
-def Login():
-    return "login page"
+        # # validate user password 
+        # response = checkpasswordvalidity(password)
+        # if response == True:
+        #     # password met all the conditions 
+
+        # else:
+        #     # password did not meet all conditions 
+        #      return render_template('register.html', message="User registered successfully")
+
+
+
+        # Connection to db
+        connection = pymysql.connect(host='localhost', user='root', password='', database='Jumia')
+ 
+        # create a cursor
+        cursor = connection.cursor()
+ 
+        sql = "INSERT INTO users (username, email, gender, phone, password) VALUES (%s, %s, %s, %s, %s)"
+        data = (username, email, gender, phone,password)
+ 
+        # execute
+        cursor.execute(sql, data)
+ 
+        # save changes
+        connection.commit()
+ 
+        return render_template('register.html', message="User registered successfully")
+    
+    # If GET request, show the registration form
+    return render_template('register.html', error="Please register")
+
+@app.route('/login', methods = ['POST' , 'GET'])
+def login():
+    if request.method == 'POST':
+        # user login logic
+        email = request.form['email']
+        password = request.form['password']
+
+        # Connection to db
+        connection = pymysql.connect(host='localhost', user='root', password='', database='Jumia')
+ 
+        # create a cursor
+        cursor = connection.cursor()
+ 
+        sql = "SELECT * from users where email = %s and password = %s"
+        data = (email,password)
+ 
+        # execute
+        cursor.execute(sql, data)
+        
+        # chec if any result found 
+        if cursor.rowcount == 0:
+ 
+          return render_template('login.html', error=" invalid login credentials")
+        else:
+         session['key'] = email
+         
+        #  flash("Login successful!", "success")  # Add this line for success message
+    
+    # If GET request, show the registration form
+         return redirect("/")
+
+
+
+    return render_template ('login.html')
 
 @app.route('/logout')
-def Logout():
-    return "logout page"
+def logout():
+    if request.method == 'POST':
+       session.clear()
+    return redirect("/login")
 
 if __name__ == '__main__':
     app.run(debug=True,port= 3000)

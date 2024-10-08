@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <script src="../static/js/bootstrap.js"></script>
+</head>
+<body>
+    {%   include 'navbar.html'  %}
+    <b class="text-succcess">{{message}}</b>
+    <b class="text-danger">{{error}}</b>
+
+     <section class="row">
+        <div class="col-md-6 p-4">
+            <form action="/login" method="post">
+                <label for="">Email</label>
+                <input type="text" class="form-control" name="email" required>
+                <br>
+                <label for="">Password</label>
+                <input type="password" class="form-control" name="password" required>
+                <p class="text-warning">{{uppercase}} </p>
+                <p class="text-info">{{uppercase}}  </p>
+                <br>
+                <a href="/register">Do not have an Account? Click to Register</a>
+                <br>
+                <button type="submit" class="btn btn-primary">login</button>
+        
+              </form>
+        </div>
+     </section>
+    
+</body>
+</html>

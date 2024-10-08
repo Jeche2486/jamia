@@ -37,11 +37,26 @@
         </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-info" type="submit">Login</button>
+          <!-- check if session ['key'] exists  -->
+          <!-- if it exists the user should not see the login and register buttons  -->
+          <!-- user is supposed to see their email and a logout button  -->
+          {%  if session['key']   %}
+          <!-- user exists  -->
+           <b class="text-success">Welcome, {{ session['key'] }}</b>
+           <a href="/logout" class="btn btn-outline-primary">Logout</a>
+
+          {%    else   %}
+
+          <!-- user does not exist  -->
+
+              <a class="nav-link" href="/login">Login</a>
+              <a class="nav-link" href="/register">Register</a>
+          {% endif  %}
           <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Register
-</button>
+</button> -->
+
           </button>
         </form>
 
@@ -50,10 +65,31 @@
   </nav>
 
 
+  <!-- <div class="container ">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert alert-dismissible fade show " role="alert">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    {% block content %}
+    {% endblock %}
+  </div> -->
+
+
 
 
   <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -83,12 +119,14 @@
           <input type="text" class="form-control" name="password" required>
           <br>
           <a href="/login">Already have an Account?Login</a>
+          <br>
+          <button type="button" class="btn btn-primary">Register</button>
+
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Register</button>
       </div>
     </div>
   </div>
-</div>
+</div> -->
