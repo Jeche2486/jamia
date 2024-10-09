@@ -8,7 +8,7 @@ app.secret_key = 'your_secret_key'  # Needed for session management
 @app.route('/')
 def homepage():
     # connect to db
-    connection = pymysql.connect(host='localhost', user='root', password='', database='Jumia')
+    connection = pymysql.connect(host='Caroline6.mysql.pythonanywhere-services.com', user='root', password='user2486', database='Caroline6$default')
     sql = "select * from products where product_category = 'phones' "
     sql1 = "select * from products where product_category = 'Electronics' "
     sql2 = "select * from products where product_category = 'clothes' "
@@ -42,7 +42,7 @@ def homepage():
 @app.route('/single/<product_id>')
 def singleitem(product_id):
     #connection to db
-    connection = pymysql.connect(host='localhost', user='root', password='', database='Jumia')
+    connection = pymysql.connect(host='Caroline6.mysql.pythonanywhere-services.com', user='root', password='user2486', database='Caroline6$default')
     # create sql query 
     sql = "select * from products where product_id = %s " 
     # create a cursor 
@@ -72,7 +72,7 @@ def Upload():
 
 
         #connection to db
-        connection = pymysql.connect(host='localhost', user='root', password='', database='Jumia')
+        connection = pymysql.connect(host='Caroline6.mysql.pythonanywhere-services.com', user='root', password='user2486', database='Caroline6$default')
 
         # create a cursor 
         cursor = connection.cursor()
@@ -98,7 +98,7 @@ def Upload():
 @app.route('/fashion')
 def Fashion():
     # connect to db
-    connection = pymysql.connect(host='localhost', user='root', password='', database='Jumia')
+    connection = pymysql.connect(host='Caroline6.mysql.pythonanywhere-services.com', user='root', password='user2486', database='Caroline6$default')
     sql = "select * from products where product_category = 'dresses' "
     sql1 = "select * from products where product_category = 'handbags' "
     sql2 = "select * from products where product_category = 'caps' "
@@ -147,7 +147,7 @@ def UploadFashion():
 
 
         #connection to db
-        connection = pymysql.connect(host='localhost', user='root', password='', database='Jumia')
+        connection = pymysql.connect(host='Caroline6.mysql.pythonanywhere-services.com', user='root', password='user2486', database='Caroline6$default')
 
         # create a cursor 
         cursor = connection.cursor()
@@ -198,7 +198,7 @@ def register():
 
 
         # Connection to db
-        connection = pymysql.connect(host='localhost', user='root', password='', database='Jumia')
+        connection = pymysql.connect(host='Caroline6.mysql.pythonanywhere-services.com', user='root', password='user2486', database='Caroline6$default')
  
         # create a cursor
         cursor = connection.cursor()
@@ -225,7 +225,7 @@ def login():
         password = request.form['password']
 
         # Connection to db
-        connection = pymysql.connect(host='localhost', user='root', password='', database='Jumia')
+        connection = pymysql.connect(host='Caroline6.mysql.pythonanywhere-services.com', user='root', password='user2486', database='Caroline6$default')
  
         # create a cursor
         cursor = connection.cursor()
